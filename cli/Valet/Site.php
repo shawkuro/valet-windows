@@ -576,11 +576,11 @@ class Site
     /**
      * Create the signed TLS certificate.
      *
-     * @param string $keyPath
-     * @param string $csrPath
-     * @param string $crtPath
-     * @param string $caPemPath
-     * @param string $caKeyPath
+     * @param  string  $keyPath
+     * @param  string  $csrPath
+     * @param  string  $crtPath
+     * @param  string  $caPemPath
+     * @param  string  $caKeyPath
      *
      * @return void
      */
@@ -681,10 +681,9 @@ class Site
             $this->files->unlink($this->certificatesPath($url, 'csr'));
             $this->files->unlink($this->certificatesPath($url, 'crt'));
         }
-
 		
         $this->cli->run(sprintf('cmd "/C certutil -delstore "CA" "%s""', $url));
-		
+
         $this->cli->run(sprintf('cmd "/C certutil -delstore "Root" "%s""', $url));
     }
 
@@ -737,9 +736,9 @@ class Site
 
         $tld = $this->config->get('tld');
 
-        foreach ($secured->pluck('site') as $domain) {			
+        foreach ($secured->pluck('site') as $domain) {
             $this->cli->run(sprintf('cmd "/C certutil -delstore "CA" "%s""', $domain.'.'.$tld));
-			
+
             $this->cli->run(sprintf('cmd "/C certutil -delstore "Root" "%s""', $domain.'.'.$tld));
         }
     }
