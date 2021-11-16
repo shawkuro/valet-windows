@@ -580,8 +580,7 @@ class Site
      * @param  string  $csrPath
      * @param  string  $crtPath
      * @param  string  $caPemPath
-     * @param  string  $caKeyPath
-     *
+     * @param  string  $caKeyPath*
      * @return void
      */
     public function createSignedCertificate(string $keyPath, string $csrPath, string $crtPath, string $caPemPath, string $caKeyPath)
@@ -681,7 +680,7 @@ class Site
             $this->files->unlink($this->certificatesPath($url, 'csr'));
             $this->files->unlink($this->certificatesPath($url, 'crt'));
         }
-		
+        
         $this->cli->run(sprintf('cmd "/C certutil -delstore "CA" "%s""', $url));
 
         $this->cli->run(sprintf('cmd "/C certutil -delstore "Root" "%s""', $url));
