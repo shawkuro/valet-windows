@@ -680,7 +680,7 @@ class Site
             $this->files->unlink($this->certificatesPath($url, 'csr'));
             $this->files->unlink($this->certificatesPath($url, 'crt'));
         }
-        
+
         $this->cli->run(sprintf('cmd "/C certutil -delstore "CA" "%s""', $url));
 
         $this->cli->run(sprintf('cmd "/C certutil -delstore "Root" "%s""', $url));
