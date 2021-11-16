@@ -437,7 +437,7 @@ class Site
      *
      * @return void
      */
-    function createCa()
+    public function createCa()
     {
         $caPemPath = $this->caPath('LaravelValetCASelfSigned.crt');
         $caKeyPath = $this->caPath('LaravelValetCASelfSigned.key');
@@ -593,12 +593,12 @@ class Site
         $subject = new X509();
         $subject->loadCSR($this->files->get($csrPath));
         $subject->setPublicKey($privKey->getPublicKey());
-        $subject->setDNProp('emailaddress', "valet");
-        $subject->setDNProp('ou', "Valet");
-        $subject->setDNProp('l', "Valet");
-        $subject->setDNProp('o', "Valet");
-        $subject->setDNProp('st', "MN");
-        $subject->setDNProp('c', "US");
+        $subject->setDNProp('emailaddress', 'valet');
+        $subject->setDNProp('ou', 'Valet');
+        $subject->setDNProp('l', 'Valet');
+        $subject->setDNProp('o', 'Valet');
+        $subject->setDNProp('st', 'MN');
+        $subject->setDNProp('c', 'US');
 
         $ca = new X509();
         $ca->loadX509($this->files->get($caPemPath));
@@ -623,7 +623,7 @@ class Site
      * @param  string  $pemPath
      * @return void
      */
-    function trustCa($caPemPath)
+    public function trustCa($caPemPath)
     {
         echo $caPemPath;
         $this->cli->runOrExit(sprintf('cmd "/C certutil -addstore "Root" "%s""', $caPemPath), function ($code, $output) {
@@ -682,9 +682,9 @@ class Site
             $this->files->unlink($this->certificatesPath($url, 'crt'));
         }
 
-		//Remove new certs signed with Valet CA from CA store
+		
         $this->cli->run(sprintf('cmd "/C certutil -delstore "CA" "%s""', $url));
-		//Remove old self-signed CA certs from the Root store
+		
         $this->cli->run(sprintf('cmd "/C certutil -delstore "Root" "%s""', $url));
     }
 
@@ -737,10 +737,9 @@ class Site
 
         $tld = $this->config->get('tld');
 
-        foreach ($secured->pluck('site') as $domain) {
-			//Remove new certs signed with Valet CA from CA store
+        foreach ($secured->pluck('site') as $domain) {			
             $this->cli->run(sprintf('cmd "/C certutil -delstore "CA" "%s""', $domain.'.'.$tld));
-			//Remove old self-signed CA certs from the Root store
+			
             $this->cli->run(sprintf('cmd "/C certutil -delstore "Root" "%s""', $domain.'.'.$tld));
         }
     }
@@ -827,7 +826,7 @@ class Site
      *
      * @return string
      */
-    function caPath($caFile = null)
+    public function caPath($caFile = null)
     {
         return $this->valetHomePath().'/CA'.($caFile ? '/'.$caFile : '');
     }
