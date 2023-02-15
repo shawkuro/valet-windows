@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.5.0 - 2022-02-18
+
+- Update Acrylic DNS Proxy.
+- Update composer dependencies.
+
+## 2.4.1 - 2021-12-03
+
+- Fixed `valet share`.
+
+## 2.4.0 - 2021-11-24
+
+- Added support for PHP 8.1.
+
 ## 2.3.2 - 2021-01-26
 
 - Fixed service installation when user path contains spaces.
